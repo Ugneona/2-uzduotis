@@ -33,7 +33,7 @@ Pagrindinis skirtumas nuo ankstesnių versijų - vietoj **struct Studentas** nau
 exe failo užimamas dydis su O1 flag - 91KB, su O2 flag - 109KB.
 
 ## Išvados:
-* Klasės naudojimas yra efektyvesnis laiko atžvilgiu duomenų skaitymui iš failų ir rūšiavimui lyginant su struktūra.
+* Klasės naudojimas yra labai nedaug efektyvesnis laiko atžvilgiu duomenų skaitymui iš failų ir rūšiavimui lyginant su struktūra.
 * O1 flag naudojimas yra naudingesnis atminties atžvilgiu, o O2 flag leidžia greičiau įvykdyti programą.
 
 
