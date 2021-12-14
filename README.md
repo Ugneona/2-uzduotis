@@ -12,10 +12,10 @@ Pagrindinis skirtumas nuo ankstesnių versijų - vietoj **struct Studentas** nau
 
 |Veiksmas|Laikas(s) su struct|Laikas(s) su class|
 | --- | --- | --- |
-|Nuskaitymas 1000000 studentų failo|2.13801|2.03323|
-|1000000 studentų rūšiavimas strategija nr. 2|0.192826|0.195844|
-|Nuskaitymas 10000000 studentų failo|18.2536|22.0839|
-|10000000 studentų rūšiavimas strategija nr. 2|2.60754|1.72013|
+|Nuskaitymas 1000000 studentų failo|2.17219|2.03323|
+|1000000 studentų rūšiavimas strategija nr. 2|0.267373|0.195844|
+|Nuskaitymas 10000000 studentų failo|23.536|22.0839|
+|10000000 studentų rūšiavimas strategija nr. 2|2.13014|1.72013|
 Pabandyti dar kartą
 ## Rezultatai su O1 ir O2 flag (ndsk = 4):
 |Veiksmas|Laikas(s) su O1|Laikas(s) su O2|
@@ -34,8 +34,8 @@ Pabandyti dar kartą
 exe failo užimamas dydis su O1 flag - 91KB, su O2 flag - 109KB.
 
 ## Išvados:
+* Klasės naudojimas yra efektyvesnis laiko atžvilgiu duomenų skaitymui iš failų ir rūšiavimui lyginant su struktūra.
 * O1 flag naudojimas yra naudingesnis atminties atžvilgiu, o O2 flag leidžia greičiau įvykdyti programą.
-* 
 
 
 
