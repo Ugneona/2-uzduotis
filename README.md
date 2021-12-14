@@ -34,7 +34,8 @@ Pabandyti dar kartą
 exe failo užimamas dydis su O1 flag - 91KB, su O2 flag - 109KB.
 
 ## Išvados:
- 
+* O1 flag naudojimas yra naudingesnis atminties atžvilgiu, o O2 flag leidžia greičiau įvykdyti programą.
+* 
 
 
 
