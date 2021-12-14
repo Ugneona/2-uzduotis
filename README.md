@@ -16,7 +16,6 @@ Pagrindinis skirtumas nuo ankstesnių versijų - vietoj **struct Studentas** nau
 |1000000 studentų rūšiavimas strategija nr. 2|0.267373|0.195844|
 |Nuskaitymas 10000000 studentų failo|23.536|22.0839|
 |10000000 studentų rūšiavimas strategija nr. 2|2.13014|1.72013|
-Pabandyti dar kartą
 ## Rezultatai su O1 ir O2 flag (ndsk = 4):
 |Veiksmas|Laikas(s) su O1|Laikas(s) su O2|
 | --- | --- | --- |
