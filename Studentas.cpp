@@ -1,5 +1,30 @@
 #include "Studentas.h"
 
+Studentas::Studentas(const Studentas& s):
+    vardas_{ s.vardas_ }, pavarde_{ s.pavarde_ }, egz_{ s.egz_ }, galutinis_vidurkis{ s.galutinis_vidurkis }, galutinis_mediana{ s.galutinis_mediana }, nd_{ s.nd_ }
+{
+    for (int i = 0; i < s.GautiNdDydi(); i++)
+    {
+        nd_.push_back(s.GautiNdElementa(i));
+    }
+}
+Studentas& Studentas::operator=(const Studentas& s)
+{
+    if (&s == this) return *this;
+
+    vardas_ = s.vardas_;
+    pavarde_ = s.pavarde_;
+    egz_ = s.egz_;
+    galutinis_vidurkis = s.galutinis_vidurkis;
+    galutinis_mediana = s.galutinis_mediana;
+    vector <double> nd_;
+    for (int i = 0; i < s.GautiNdDydi(); i++)
+    {
+        nd_.push_back(s.GautiNdElementa(i));
+    }
+    s.~Studentas();
+    return *this;
+}
 void failoNuskaitymas(vector <Studentas>& grupe1, int& v1)
 {
     double temp, egzaminas;
@@ -35,7 +60,7 @@ void failoNuskaitymas(vector <Studentas>& grupe1, int& v1)
         ss >> vardas >> pavarde;
 
         stu.SetVardasPavarde(vardas, pavarde);
-        
+
         stu.NdReserve(ndKiek);
 
         for (int k = 0; k < ndKiek; k++)
@@ -494,10 +519,10 @@ void studentoUzpildymasRnd(int& studentuSkaicius, vector <Studentas>& grupe)
             stu.SetEgzaminas(egzaminas);
 
             cout << "Egzamino pazymys: " << stu.GautiEgzamina() << endl;
-            
+
             stu.SetGalutinisVidurkis();
             stu.SetGalutinisMediana();
-            
+
             grupe.push_back(stu);
             stu.NdIsvalymas();
         }
@@ -558,5 +583,3 @@ void studentoUzpildymasRnd(int& studentuSkaicius, vector <Studentas>& grupe)
     }
 
 }
-
-

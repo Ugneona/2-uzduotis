@@ -9,15 +9,20 @@
 class Studentas
 {
 private:
-	string vardas_, pavarde_;
+    string vardas_, pavarde_;
     vector <double> nd_;
     double egz_;
     double galutinis_vidurkis;
     double galutinis_mediana;
 public:
-    Studentas() : egz_(0), galutinis_vidurkis(0), galutinis_mediana(0) {};
+    Studentas() : nd_(0), egz_(0), galutinis_vidurkis(0), galutinis_mediana(0) {};
+    ~Studentas() { nd_.clear(); };
+    Studentas(const Studentas& s);
+    Studentas& operator=(const Studentas& s);
     inline std::string GautiVarda() const { return vardas_; }
     inline std::string GautiPavarde() const { return pavarde_; }
+    inline int GautiNdDydi() const { return nd_.size(); }
+    inline double GautiNdElementa(int i) const { return nd_.at(i); }
     inline double GautiEgzamina() const { return egz_; }
     void SetVardasPavarde(string vardas, string pavarde)
     {
@@ -40,13 +45,13 @@ public:
     {
         nd_.clear();
     }
-    void SetGalutinisMediana () {
+    void SetGalutinisMediana() {
         sort(nd_.begin(), nd_.end());
 
         int ndKiek1 = nd_.size();
 
         if (ndKiek1 % 2 == 0)  galutinis_mediana = 0.4 * ((double)(nd_[(ndKiek1 / 2) - 1] + nd_[ndKiek1 / 2]) / 2.0) + 0.6 * egz_;
-        else galutinis_mediana = 0.4 * ((double) nd_[ndKiek1 / 2]) + 0.6 *egz_;
+        else galutinis_mediana = 0.4 * ((double)nd_[ndKiek1 / 2]) + 0.6 * egz_;
     }
     inline double GetGalutinisMediana() const { return galutinis_mediana; }
     void SetGalutinisVidurkis()
@@ -66,7 +71,7 @@ public:
         galutinis_vidurkis = 0.4 * vid + 0.6 * egz_;
     }
     inline double GetGalutinisVidurkis() const { return galutinis_vidurkis; }
-    
+
 };
 void failoNuskaitymas(vector <Studentas>& grupe1, int& v1);
 void rusiavimas(vector <Studentas>& grupe1, vector <Studentas>& protingi, vector <Studentas>& tinginiai, vector <double>& laikas, char& atsakymas);
