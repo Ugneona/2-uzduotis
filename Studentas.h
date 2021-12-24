@@ -2,14 +2,24 @@
 #ifndef STUDENTAS_H
 #define STUDENTAS_H
 
-
 #include "Antraste.h"
 #include "Uzklausos.h"
 
-class Studentas
+class Zmogus
+{
+protected:
+    int amzius;
+    string vardas_, pavarde_;
+public:
+    Zmogus(int amz = 0, string v = "", string p = "") : amzius{ amz }, vardas_{ v }, pavarde_{ p } {};
+    ~Zmogus() {};
+    Zmogus(const Zmogus& z);
+    Zmogus& operator=(const Zmogus& z);
+    virtual void SetVardasPavarde(string vardas, string pavarde) = 0;
+};
+class Studentas : public Zmogus
 {
 private:
-    string vardas_, pavarde_;
     vector <double> nd_;
     double egz_;
     double galutinis_vidurkis;
@@ -19,8 +29,8 @@ public:
     ~Studentas() { nd_.clear(); };
     Studentas(const Studentas& s);
     Studentas& operator=(const Studentas& s);
-    inline std::string GautiVarda() const { return vardas_; }
-    inline std::string GautiPavarde() const { return pavarde_; }
+    string GautiVarda() const { return vardas_; };
+    string GautiPavarde() const { return pavarde_; };
     inline int GautiNdDydi() const { return nd_.size(); }
     inline double GautiNdElementa(int i) const { return nd_.at(i); }
     inline double GautiEgzamina() const { return egz_; }

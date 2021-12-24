@@ -1,7 +1,19 @@
 #include "Studentas.h"
 
-Studentas::Studentas(const Studentas& s):
-    vardas_(s.vardas_), pavarde_(s.pavarde_), egz_(s.egz_), galutinis_vidurkis(s.galutinis_vidurkis), galutinis_mediana(s.galutinis_mediana), nd_(s.nd_)
+Zmogus::Zmogus(const Zmogus& z) :
+    amzius{ z.amzius }, vardas_{ z.vardas_ }, pavarde_{ z.pavarde_ }{};
+
+Zmogus& Zmogus::operator=(const Zmogus& z)
+{
+    if (&z == this) return *this;
+
+    amzius = z.amzius;
+    vardas_ = z.vardas_;
+    pavarde_ = z.pavarde_;
+
+};
+Studentas::Studentas(const Studentas& s) :
+     egz_{ s.egz_ }, galutinis_vidurkis{ s.galutinis_vidurkis }, galutinis_mediana{ s.galutinis_mediana }, nd_{ s.nd_ }
 {
     for (int i = 0; i < s.GautiNdDydi(); i++)
     {
@@ -12,8 +24,6 @@ Studentas& Studentas::operator=(const Studentas& s)
 {
     if (&s == this) return *this;
 
-    vardas_ = s.vardas_;
-    pavarde_ = s.pavarde_;
     egz_ = s.egz_;
     galutinis_vidurkis = s.galutinis_vidurkis;
     galutinis_mediana = s.galutinis_mediana;
@@ -22,8 +32,7 @@ Studentas& Studentas::operator=(const Studentas& s)
     {
         nd_.push_back(s.GautiNdElementa(i));
     }
-    delete s.nd_;
-
+    s.~Studentas();
     return *this;
 }
 void failoNuskaitymas(vector <Studentas>& grupe1, int& v1)

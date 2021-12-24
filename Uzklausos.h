@@ -1,7 +1,6 @@
 #pragma once
 #include "Patikrinimas.h"
 
-
 char uzklausa_delFailuGeneravimo();
 char uzklausa_delFailo();
 char uzklausa_delAtsakymo();
