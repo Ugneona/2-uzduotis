@@ -2,14 +2,14 @@
 
 void failoNuskaitymas(vector <Studentas>& grupe1, int& v1)
 {
-    double temp, egzaminas;
+    double temp, egz;
     int i = 0;
+    std::stringstream ss;
     string sLine;
     int zodziuSk = 0;
     string word, vardas, pavarde;
     string failoPav = "Studentai " + to_string(v1) + ".txt";
     ifstream nuskaitymas(failoPav);
-    std::stringstream ss;
 
     if (!nuskaitymas) {
         cerr << "Unable to open file datafile.txt";
@@ -33,23 +33,20 @@ void failoNuskaitymas(vector <Studentas>& grupe1, int& v1)
         Studentas stu;
 
         ss >> vardas >> pavarde;
-
         stu.SetVardasPavarde(vardas, pavarde);
-        
+
         stu.NdReserve(ndKiek);
 
-        for (int k = 0; k < ndKiek; k++)
+        for (int k = 0; k < (ndKiek); k++)
         {
             ss >> temp;
             stu.NdIdeti(temp);
         }
 
-        ss >> egzaminas;
-
-        stu.SetEgzaminas(egzaminas);
+        ss >> egz;
+        stu.SetEgzaminas(egz);
 
         stu.SetGalutinisVidurkis();
-
         stu.SetGalutinisMediana();
 
         grupe1.push_back(stu);
@@ -58,74 +55,6 @@ void failoNuskaitymas(vector <Studentas>& grupe1, int& v1)
         i++;
     }
     nuskaitymas.close();
-}
-
-void rusiavimas_strategija2(vector <Studentas>& grupe_vector, vector <Studentas>& tinginiai_vector, vector <double>& laikas_vector, char& atsakymas)
-{
-    if (atsakymas == 't' || atsakymas == 'T')
-    {
-        auto start = std::chrono::high_resolution_clock::now();
-
-        vector<Studentas>::iterator it1;
-
-        std::partition(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
-            {
-                return a.GetGalutinisVidurkis() >= 5;
-
-            });
-
-        auto itt = std::partition_point(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
-            {
-                return a.GetGalutinisVidurkis() >= 5;
-            });
-
-        for (it1 = itt; it1 != grupe_vector.end(); it1++)
-        {
-            tinginiai_vector.push_back(*it1);
-        }
-        //grupe_vector.erase(std::remove_if(grupe_vector.begin(), grupe_vector.end(), [](studentas a) {return (a.galutinis_vidurkis < 5); }), grupe_vector.end());
-        //grupe_vector.erase(itt, grupe_vector.end());
-        grupe_vector.assign(grupe_vector.begin(), itt);
-        grupe_vector.resize(grupe_vector.size());
-
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff = end - start;
-
-        laikas_vector.push_back(diff.count());
-    }
-    else
-    {
-        auto start = std::chrono::high_resolution_clock::now();
-
-        vector<Studentas>::iterator it1;
-
-        std::partition(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
-            {
-                return a.GetGalutinisMediana() >= 5;
-
-            });
-
-        auto itt = std::partition_point(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
-            {
-                return a.GetGalutinisMediana() >= 5;
-
-            });
-
-        for (it1 = itt; it1 != grupe_vector.end(); it1++)
-        {
-            tinginiai_vector.push_back(*it1);
-        }
-        //grupe_vector.erase(grupe_vector.begin(), std::remove_if(grupe_vector.begin(), grupe_vector.end(), [](studentas a) {return (a.galutinis_mediana < 5); }));
-        grupe_vector.assign(grupe_vector.begin(), itt);
-        grupe_vector.resize(grupe_vector.size());
-
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff = end - start;
-
-        laikas_vector.push_back(diff.count());
-
-    }
-
 }
 
 void rusiavimas(vector <Studentas>& grupe1, vector <Studentas>& protingi, vector <Studentas>& tinginiai, vector <double>& laikas, char& atsakymas)
@@ -177,39 +106,109 @@ void rusiavimas(vector <Studentas>& grupe1, vector <Studentas>& protingi, vector
     }
 }
 
-void spausdinimas(int& v1, char& atsakymas, vector <Studentas>& sarasas, vector <double>& laikas, string& pav)
+void rusiavimas_strategija_nr2(vector <Studentas>& grupe_vector, vector <Studentas>& tinginiai_vector, vector <double>& laikas_vector, char& atsakymas)
 {
-    string failoPav = pav + "_Studentai " + to_string(v1) + ".txt";
-
-    std::stringstream ss;
-
-    auto start = std::chrono::high_resolution_clock::now();
-
-    ofstream rz("Rezultatai_vector_" + failoPav);
-
     if (atsakymas == 't' || atsakymas == 'T')
     {
-        ss << setw(20) << left << "Pavarde" << setw(20) << left << "Vardas" << setw(20) << left << "Galutinis (Vid.)" << endl;
-        ss << "-------------------------------------------------------------------------" << endl;
+        auto start = std::chrono::high_resolution_clock::now();
 
-        for (const auto& stu : sarasas)
+        vector<Studentas>::iterator it1;
+
+        std::partition(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
+            {
+                return a.GetGalutinisVidurkis() >= 5;
+
+            });
+
+        auto itt = std::partition_point(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
+            {
+                return a.GetGalutinisVidurkis() >= 5;
+            });
+
+        for (it1 = itt; it1 != grupe_vector.end(); it1++)
         {
-            ss << setw(20) << left << stu.GautiPavarde() << setw(20) << left << stu.GautiVarda() << setw(20) << left << fixed << setprecision(2) << stu.GetGalutinisVidurkis() << endl;
+            tinginiai_vector.push_back(*it1);
         }
+        //grupe_vector.erase(std::remove_if(grupe_vector.begin(), grupe_vector.end(), [](studentas a) {return (a.galutinis_vidurkis < 5); }), grupe_vector.end());
+        //grupe_vector.erase(itt, grupe_vector.end());
+        grupe_vector.assign(grupe_vector.begin(), itt);
+        grupe_vector.resize(grupe_vector.size());
 
-        rz << ss.str();
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+
+        laikas_vector.push_back(diff.count());
+
     }
     else
     {
-        ss << setw(20) << left << "Pavarde" << setw(20) << left << "Vardas" << setw(20) << left << "Galutinis (Med.)" << endl;
-        ss << "-------------------------------------------------------------------------" << endl;
+        auto start = std::chrono::high_resolution_clock::now();
+
+        vector<Studentas>::iterator it1;
+
+        std::partition(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
+            {
+                return a.GetGalutinisMediana() >= 5;
+
+            });
+
+        auto itt = std::partition_point(grupe_vector.begin(), grupe_vector.end(), [](Studentas a)
+            {
+                return a.GetGalutinisMediana() >= 5;
+
+            });
+
+        for (it1 = itt; it1 != grupe_vector.end(); it1++)
+        {
+            tinginiai_vector.push_back(*it1);
+        }
+        //grupe_vector.erase(grupe_vector.begin(), std::remove_if(grupe_vector.begin(), grupe_vector.end(), [](studentas a) {return (a.galutinis_mediana < 5); }));
+        grupe_vector.assign(grupe_vector.begin(), itt);
+        grupe_vector.resize(grupe_vector.size());
+
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+
+        laikas_vector.push_back(diff.count());
+
+    }
+}
+
+void spausdinimas(int& v1, char& atsakymas, vector <Studentas>& sarasas, vector <double>& laikas, string& pav)
+{
+    string failoPav = pav + "_Studentai_ " + to_string(v1) + ".txt";
+    auto start = std::chrono::high_resolution_clock::now();
+    ofstream rz("Rezultatai_" + failoPav);
+
+    if (atsakymas == 't' || atsakymas == 'T')
+    {
+        sort(sarasas.begin(), sarasas.end(), ([](Studentas a, Studentas b)
+            {
+                return a.GetGalutinisVidurkis() < b.GetGalutinisVidurkis();
+            }));
+        rz << setw(20) << left << "Pavarde" << setw(20) << left << "Vardas" << setw(20) << left << "Galutinis (Vid.)" << endl;
+        rz << "-------------------------------------------------------------------------" << endl;
 
         for (const auto& stu : sarasas)
         {
-            ss << setw(20) << left << stu.GautiPavarde() << setw(20) << left << stu.GautiVarda() << setw(20) << left << fixed << setprecision(2) << stu.GetGalutinisMediana() << endl;
+            rz << setw(20) << left << stu.GautiPavarde() << setw(20) << left << stu.GautiVarda() << setw(20) << left << fixed << setprecision(2) << stu.GetGalutinisVidurkis() << endl;
         }
 
-        rz << ss.str();
+    }
+    else
+    {
+        sort(sarasas.begin(), sarasas.end(), ([](Studentas a, Studentas b)
+            {
+                return a.GetGalutinisMediana() < b.GetGalutinisMediana();
+            }));
+        rz << setw(20) << left << "Pavarde" << setw(20) << left << "Vardas" << setw(20) << left << "Galutinis (Med.)" << endl;
+        rz << "-------------------------------------------------------------------------" << endl;
+
+        for (const auto& stu : sarasas)
+        {
+            rz << setw(20) << left << stu.GautiPavarde() << setw(20) << left << stu.GautiVarda() << setw(20) << left << fixed << setprecision(2) << stu.GetGalutinisMediana() << endl;
+        }
+
     }
 
     rz.close();
@@ -258,11 +257,11 @@ void spausdinimas(char& atsakymas, vector <Studentas>& grupe1)
     }
 
     rz.close();
+
 }
 
 void spausdinti_vector_nr2(char& atsakymas, vector <Studentas>& grupe1)
 {
-
     if (atsakymas == 'v' || atsakymas == 'V')
     {
         cout << setw(20) << left << "Pavarde" << setw(20) << left << "Vardas" << setw(20) << left << "Galutinis (Vid.)" << endl;
@@ -295,21 +294,24 @@ void spausdinti_vector_nr2(char& atsakymas, vector <Studentas>& grupe1)
         }
 
     }
+
 }
 
 void studentoUzpildymasVardPavardNdEgz(int& studentuSkaicius, vector <Studentas>& grupe)
 {
     char ats;
     int ndSkaicius;
-    double pazymys, egzaminas;
+    double pazymys, egz;
     string vardas, pavarde;
     Studentas stu;
 
     ats = uzklausa_arNdSkaiciusZinomas();
+    cout << "\n";
 
     if (ats == 't' || ats == 'T')
     {
         ndSkaicius = uzklausa_kiekNdYra();
+        cout << "\n";
 
         for (int i = 0; i < studentuSkaicius; i++)
         {
@@ -332,7 +334,6 @@ void studentoUzpildymasVardPavardNdEgz(int& studentuSkaicius, vector <Studentas>
                 cin.ignore(256, '\n');
                 cin >> pavarde;
             }
-
             stu.SetVardasPavarde(vardas, pavarde);
 
             cout << "Iveskite gautus pazymius is namu darbu (1-10): " << endl;
@@ -350,16 +351,16 @@ void studentoUzpildymasVardPavardNdEgz(int& studentuSkaicius, vector <Studentas>
             }
 
             cout << "Iveskite egzamino pazymi (1-10): " << endl;
-            cin >> egzaminas;
-            while (cin.fail() || egzaminas <= 0 || egzaminas > 10)
+            cin >> egz;
+
+            while (cin.fail() || egz <= 0 || egz > 10)
             {
                 cin.clear();
                 cout << "Neteisingai ivedete egzamino pazymi, prasome dar karta ivesti (1-10)" << endl;
                 cin.ignore(256, '\n');
-                cin >> egzaminas;
+                cin >> egz;
             }
-            stu.SetEgzaminas(egzaminas);
-
+            stu.SetEgzaminas(egz);
             stu.SetGalutinisVidurkis();
             stu.SetGalutinisMediana();
 
@@ -390,7 +391,6 @@ void studentoUzpildymasVardPavardNdEgz(int& studentuSkaicius, vector <Studentas>
                 cin.ignore(256, '\n');
                 cin >> pavarde;
             }
-
             stu.SetVardasPavarde(vardas, pavarde);
 
             cout << "Iveskite gautus pazymius is namu darbu (1-10): " << endl;
@@ -423,16 +423,15 @@ void studentoUzpildymasVardPavardNdEgz(int& studentuSkaicius, vector <Studentas>
             }
 
             cout << "Iveskite egzamino pazymi (1-10): " << endl;
-            cin >> egzaminas;
-            while (cin.fail() || egzaminas <= 0 || egzaminas > 10)
+            cin >> egz;
+            while (cin.fail() || egz <= 0 || egz > 10)
             {
                 cin.clear();
                 cout << "Neteisingai ivedete egzamino pazymi, prasome dar karta ivesti (1-10)" << endl;
                 cin.ignore(256, '\n');
-                cin >> egzaminas;
+                cin >> egz;
             }
-            stu.SetEgzaminas(egzaminas);
-
+            stu.SetEgzaminas(egz);
             stu.SetGalutinisVidurkis();
             stu.SetGalutinisMediana();
 
@@ -440,14 +439,13 @@ void studentoUzpildymasVardPavardNdEgz(int& studentuSkaicius, vector <Studentas>
             stu.NdIsvalymas();
         }
     }
-
 }
 
 void studentoUzpildymasRnd(int& studentuSkaicius, vector <Studentas>& grupe)
 {
     char atsakymas;
     int ndSkaicius;
-    double paz, egzaminas;
+    double paz, egz;
     Studentas stu;
     string vardas, pavarde;
 
@@ -478,7 +476,6 @@ void studentoUzpildymasRnd(int& studentuSkaicius, vector <Studentas>& grupe)
                 cin.ignore(256, '\n');
                 cin >> pavarde;
             }
-
             stu.SetVardasPavarde(vardas, pavarde);
 
             srand(time(NULL));
@@ -490,14 +487,14 @@ void studentoUzpildymasRnd(int& studentuSkaicius, vector <Studentas>& grupe)
                 stu.NdIdeti(paz);
             }
 
-            egzaminas = rand() % 10 + 1;
-            stu.SetEgzaminas(egzaminas);
+            egz = rand() % 10 + 1;
+            stu.SetEgzaminas(egz);
 
             cout << "Egzamino pazymys: " << stu.GautiEgzamina() << endl;
-            
+
             stu.SetGalutinisVidurkis();
             stu.SetGalutinisMediana();
-            
+
             grupe.push_back(stu);
             stu.NdIsvalymas();
         }
@@ -544,11 +541,10 @@ void studentoUzpildymasRnd(int& studentuSkaicius, vector <Studentas>& grupe)
                 atsakymas = uzklausa_arBusDarPazymiu();
             }
 
-            egzaminas = rand() % 10 + 1;
-            stu.SetEgzaminas(egzaminas);
+            egz = rand() % 10 + 1;
+            stu.SetEgzaminas(egz);
 
             cout << "Egzamino pazymys: " << stu.GautiEgzamina() << endl;
-
             stu.SetGalutinisVidurkis();
             stu.SetGalutinisMediana();
 
@@ -556,7 +552,4 @@ void studentoUzpildymasRnd(int& studentuSkaicius, vector <Studentas>& grupe)
             stu.NdIsvalymas();
         }
     }
-
 }
-
-
