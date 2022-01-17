@@ -31,4 +31,3 @@ using std::ofstream;
 using std::stringstream;
 using std::to_string;
 using std::list;
-
