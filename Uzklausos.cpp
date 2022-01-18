@@ -1,5 +1,8 @@
 #include "Uzklausos.h"
-
+/// Uzklausa
+/// 
+/// Klausiama, ar dirbsime ir atliksime greicio tyrima su failais
+/// @returns t/T - dirbsime ir atliksime, n/N - ne
 char uzklausa_delFailuDarbo()
 {
     char atsakymas;
@@ -16,11 +19,14 @@ char uzklausa_delFailuDarbo()
     return atsakymas;
 
 }
-
+/// Uzklausa
+/// 
+/// Ar kursime naujus failus, ar dirbsime su senais?
+/// @return t/T - bus generuojami nauji 5 failai, n/N - nebus
 char uzklausa_delFailuGeneravimo()
 {
     char atsakymas;
-    cout << "Ar norite sugeneruoti 5 naujus failus su duomenimis apie studentus? T - jei norite, n - jei nenorite dirbti jau su sugeneruotais" << endl;
+    cout << "Ar norite sugeneruoti 5 naujus failus su duomenimis apie studentus? T - jei norite, n - jei norite dirbti jau su sugeneruotais" << endl;
     cin >> atsakymas;
 
     while (isalpha(atsakymas) == false || check_alpha(atsakymas) == false)
@@ -32,7 +38,10 @@ char uzklausa_delFailuGeneravimo()
     }
     return atsakymas;
 }
-
+/// Uzklausa
+/// 
+/// Kiek bus studentu?
+/// @return studentu skaiciu
 int studentuSkaiciausUzklausa()
 {
     int studentSk;
@@ -50,7 +59,10 @@ int studentuSkaiciausUzklausa()
 
     return studentSk;
 }
-
+/// Uzklausa
+/// 
+/// Ar nd skaicius bus zinomas is anksto?
+/// @return t/T - jei namu darbu skaicius zinomas is anksto, n/N - nezinomas is anksto
 char uzklausa_arNdSkaiciusZinomas()
 {
     char ats;
@@ -65,7 +77,10 @@ char uzklausa_arNdSkaiciusZinomas()
     }
     return ats;
 }
-
+/// Uzklausa
+/// 
+/// Kiek yra nd?
+/// @return namu darbu skaiciu
 int uzklausa_kiekNdYra()
 {
     int ndSkaicius;
@@ -80,7 +95,10 @@ int uzklausa_kiekNdYra()
     }
     return ndSkaicius;
 }
-
+/// Uzklausa
+/// 
+/// Ar bus dar pazymiu?
+/// @return t/T - jei bus dar namu darbu pazymiu, n/N - nebus
 char uzklausa_arBusDarPazymiu()
 {
     char ats;
@@ -96,7 +114,10 @@ char uzklausa_arBusDarPazymiu()
     }
     return ats;
 }
-
+/// Uzklausa
+/// 
+/// Ar dirbsime su mazesniu failu?
+/// @return t/T - jei skaitysime is failo, n/N - neskaitysime
 char uzklausa_delFailo()
 {
     char klsm;
@@ -111,7 +132,10 @@ char uzklausa_delFailo()
     }
     return klsm;
 }
-
+/// Uzklausa
+/// 
+/// Rezultate su kuo noresite matyti apskaiciuota galutini pazymi?
+/// @return v/V - atsakyme bus pateikiamas galutinis pazymys, kuris buvo apskaciuotas su vidurkiu, m/M - atsakyme bus pateikiamas galutinis pazymys, kuris buvo apskaiciuotas su mediana, a/A - atsakyme bus pateikiami du galutiniai pazymiai, vienas apskaiciuotas su vidurkiu, kitas su mediana
 char uzklausa_delAtsakymo()
 {
     char ats;
@@ -127,6 +151,10 @@ char uzklausa_delAtsakymo()
     }
     return ats;
 }
+/// Uzklausa
+/// 
+/// Rezultate su kuo noresite matyti apskaiciuota galutini pazymi?
+/// @return t/T - atsakyme bus pateikiamas galutinis pazymys, kuris buvo apskaciuotas su vidurkiu , n/N - atsakyme bus pateikiamas galutinis pazymys, kuris buvo apskaiciuotas su mediana
 char Uzklausa_Ats()
 {
     char ats;
@@ -142,6 +170,10 @@ char Uzklausa_Ats()
     }
     return ats;
 }
+/// Uzklausa
+/// 
+/// Ar nd ir egzamino pazymius generuosime automatiskai?
+/// @return t/T - egzamino pazymi ir namu darbu pazymius ves pats vartotojas, n/N - egzamino pazymi ir namu darbu pazymius sugeneruos automatiskai
 char uzklausa_delGeneravimo()
 {
     char klsm;
